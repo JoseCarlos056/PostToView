@@ -25,6 +25,9 @@ background-color: #ecf0f1;
 .title-primary{
   color: #fff;
 }
+.title-second{
+  color: green;
+}
 .description{
   font-size: 14px;
   font-weight: 300;

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container,GlobalStyle } from './Styles/Login'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons' 
+import { Container,GlobalStyle } from './Styles/Login';
 
 export default class Login extends React.Component{
     constructor(){
@@ -26,7 +28,7 @@ export default class Login extends React.Component{
 						<ul className="list-social-media">
 							<a className="link-social-media" href="#">
 								<li className="item-social-media">
-									<i className="fab fa-facebook-f">x</i>        
+								<FontAwesomeIcon icon={['fab', 'facebook-f']} />
 								</li>
 							</a>
 							<a className="link-social-media" href="#">
