@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF } from '@fortawesome/free-brands-svg-icons' 
+import { faFacebook, faGooglePlusG, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
+import { faLock,faEnvelope,faUser} from '@fortawesome/free-solid-svg-icons'
 import { Container,GlobalStyle } from './Styles/Login';
 
 export default class Login extends React.Component{
@@ -28,17 +29,17 @@ export default class Login extends React.Component{
 						<ul className="list-social-media">
 							<a className="link-social-media" href="#">
 								<li className="item-social-media">
-								<FontAwesomeIcon icon={['fab', 'facebook-f']} />
+								<FontAwesomeIcon icon={faFacebook} />
 								</li>
 							</a>
 							<a className="link-social-media" href="#">
 								<li className="item-social-media">
-									<i className="fab fa-google-plus-g">x</i>
+								<FontAwesomeIcon icon={faGooglePlusG} />
 								</li>
 							</a>
 							<a className="link-social-media" href="#">
 								<li className="item-social-media">
-									<i className="fab fa-linkedin-in">x</i>
+								<FontAwesomeIcon icon={faLinkedinIn} />
 								</li>
 							</a>
 						</ul>
@@ -46,17 +47,17 @@ export default class Login extends React.Component{
 					<p className="description description-second">or use your email for registration:</p>
 					<form className="form">
 						<label className="label-input" for="">
-							<i className="far fa-user icon-modify"></i>
+						<FontAwesomeIcon icon={faUser} />
 							<input type="text" placeholder="Name" />
 						</label>
 						
 						<label className="label-input" for="">
-							<i className="far fa-envelope icon-modify"></i>
+						<FontAwesomeIcon icon={faEnvelope} />
 							<input type="email" placeholder="Email" />
 						</label>
 						
 						<label className="label-input" for="">
-							<i className="fas fa-lock icon-modify"></i>
+						<FontAwesomeIcon icon={faLock} />
 							<input type="password" placeholder="Password" />
 						</label>
 						
@@ -78,17 +79,17 @@ export default class Login extends React.Component{
 						<ul className="list-social-media">
 							<a className="link-social-media" href="#">
 								<li className="item-social-media">
-									<i className="fab fa-facebook-f"></i>
+								<FontAwesomeIcon icon={faFacebook} />
 								</li>
 							</a>
 							<a className="link-social-media" href="#">
 								<li className="item-social-media">
-									<i className="fab fa-google-plus-g"></i>
+								<FontAwesomeIcon icon={faGooglePlusG} />
 								</li>
 							</a>
 							<a className="link-social-media" href="#">
 								<li className="item-social-media">
-									<i className="fab fa-linkedin-in"></i>
+								<FontAwesomeIcon icon={faLinkedinIn} />
 								</li>
 							</a>
 						</ul>
