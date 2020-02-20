@@ -10,7 +10,16 @@ export default class Login extends React.Component{
         this.state= {
 
         }
-    }
+	}
+	showSignIn=_=>{
+		console.log('x')
+		document.body.classList.remove('sign-up-js');
+		document.body.classList.add('sign-in-js');
+	}
+	showSignUp=_=>{
+		document.body.classList.remove('sign-in-js');
+		document.body.classList.add('sign-up-js');
+	}
     render(){
         return(
             
@@ -18,13 +27,13 @@ export default class Login extends React.Component{
 				<GlobalStyle/>
 			<div className="content first-content">
 				<div className="first-column">
-					<h2 className="title title-primary">welcome back!</h2>
-					<p className="description description-primary">To keep connected with us</p>
-					<p className="description description-primary">please login with your personal info</p>
-					<button id="signin" className="btn btn-primary">sign in</button>
+					<h2 className="title title-primary">Bem vindo de volta!</h2>
+					<p className="description description-primary">Para manter-se conectado conosco</p>
+					<p className="description description-primary">faça o login com suas informações pessoais</p>
+					<button id="signin" className="btn btn-primary"  onClick={this.showSignIn}>Entrar</button>
 				</div>    
 				<div className="second-column">
-					<h2 className="title title-second">create account</h2>
+					<h2 className="title title-second">Criar Conta</h2>
 					<div className="social-media">
 						<ul className="list-social-media">
 							<a className="link-social-media" href="#">
@@ -44,7 +53,7 @@ export default class Login extends React.Component{
 							</a>
 						</ul>
 					</div>
-					<p className="description description-second">or use your email for registration:</p>
+					<p className="description description-second">ou se cadastre com outras contas:</p>
 					<form className="form">
 						<label className="label-input" for="">
 						<FontAwesomeIcon icon={faUser} />
@@ -62,19 +71,19 @@ export default class Login extends React.Component{
 						</label>
 						
 						
-						<button className="btn btn-second">sign up</button>        
+						<button className="btn btn-second">Cadastrar</button>        
 					</form>
 				</div>
 			</div>
 			<div className="content second-content">
 				<div className="first-column">
-					<h2 className="title title-primary">hello, friend!</h2>
-					<p className="description description-primary">Enter your personal details</p>
-					<p className="description description-primary">and start journey with us</p>
-					<button id="signup" className="btn btn-primary">sign up</button>
+					<h2 className="title title-primary">Olá, amigo!</h2>
+					<p className="description description-primary">Coloque suas informações</p>
+					<p className="description description-primary">e aproveite!</p>
+					<button id="signup" className="btn btn-primary" onClick={this.showSignUp}>Cadastrar</button>
 				</div>
 				<div className="second-column">
-					<h2 className="title title-second">sign in to developer</h2>
+					<h2 className="title title-second">Entre no PostToView</h2>
 					<div className="social-media">
 						<ul className="list-social-media">
 							<a className="link-social-media" href="#">
@@ -94,21 +103,21 @@ export default class Login extends React.Component{
 							</a>
 						</ul>
 					</div>
-					<p className="description description-second">or use your email account:</p>
+					<p className="description description-second">se prefirir usar outras contas:</p>
 					<form className="form">
 					
 						<label className="label-input" for="">
-							<i className="far fa-envelope icon-modify"></i>
+						<FontAwesomeIcon icon={faEnvelope} />
 							<input type="email" placeholder="Email" />
 						</label>
 					
 						<label className="label-input" for="">
-							<i className="fas fa-lock icon-modify"></i>
+						<FontAwesomeIcon icon={faLock} />
 							<input type="password" placeholder="Password" />
 						</label>
 					
-						<a className="password" href="#">forgot your password?</a>
-						<button className="btn btn-second">sign in</button>
+						<a className="password" href="#">esqueceu a senha?</a>
+						<button className="btn btn-second">entrar</button>
 					</form>
 				</div>
 			</div>
