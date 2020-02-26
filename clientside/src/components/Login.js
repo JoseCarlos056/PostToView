@@ -1,26 +1,58 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faGooglePlusG, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
-import { faLock,faEnvelope,faUser} from '@fortawesome/free-solid-svg-icons'
+import { faFacebook, faGooglePlusG, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { faLock,faEnvelope,faUser} from '@fortawesome/free-solid-svg-icons';
 import { Container,GlobalStyle } from './Styles/Login';
+import { register, logIn } from './functions/UserFunctions';
 
+const initialState = {
+    name: '',
+    email:'',
+    password: '',
+}
 export default class Login extends React.Component{
     constructor(){
         super();
         this.state= {
-
+                name: '',
+                email:'',
+                password: '',
         }
 	}
 	showSignIn=_=>{
-		console.log('x')
+		this.setState(initialState)
 		document.body.classList.remove('sign-up-js');
 		document.body.classList.add('sign-in-js');
 	}
 	showSignUp=_=>{
+        this.setState(initialState)
 		document.body.classList.remove('sign-in-js');
 		document.body.classList.add('sign-up-js');
-	}
+    }
+    onSubmitRegister=(ev)=>{
+        ev.preventDefault();
+        register(this.state).then(response =>{
+            if(response.error)
+            return window.alert(response.error)
+            localStorage.setItem('token', response.token)
+        })
+
+    }
+    onSubmitLogin=(ev)=>{
+        ev.preventDefault();
+        logIn({email : this.state.email ,password: this.state.password }).then(response =>{
+            if(response.error)
+            return window.alert(response.error)
+            localStorage.setItem('token', response.token)
+        })
+
+    }
+    onChage=(ev)=>{
+        this.setState({[ev.currentTarget.name] : ev.currentTarget.value})
+    }
+
     render(){
+        console.log(this.state)
         return(
             
 			<Container>
@@ -36,17 +68,17 @@ export default class Login extends React.Component{
 					<h2 className="title title-second">Criar Conta</h2>
 					<div className="social-media">
 						<ul className="list-social-media">
-							<a className="link-social-media" href="#">
+							<a className="link-social-media" href="/#">
 								<li className="item-social-media">
 								<FontAwesomeIcon icon={faFacebook} />
 								</li>
 							</a>
-							<a className="link-social-media" href="#">
+							<a className="link-social-media" href="/#">
 								<li className="item-social-media">
 								<FontAwesomeIcon icon={faGooglePlusG} />
 								</li>
 							</a>
-							<a className="link-social-media" href="#">
+							<a className="link-social-media" href="/#">
 								<li className="item-social-media">
 								<FontAwesomeIcon icon={faLinkedinIn} />
 								</li>
@@ -54,24 +86,24 @@ export default class Login extends React.Component{
 						</ul>
 					</div>
 					<p className="description description-second">ou se cadastre com outras contas:</p>
-					<form className="form">
-						<label className="label-input" for="">
+					<form className="form" onSubmit={this.onSubmitRegister}>
+						<label className="label-input" >
 						<FontAwesomeIcon icon={faUser} />
-							<input type="text" placeholder="Name" />
+							<input type="text" placeholder="Name" onChange={this.onChage} name='name' value={this.state.name}/>
 						</label>
 						
-						<label className="label-input" for="">
+						<label className="label-input" >
 						<FontAwesomeIcon icon={faEnvelope} />
-							<input type="email" placeholder="Email" />
+							<input type="email" placeholder="Email" onChange={this.onChage} name='email' value={this.state.email}  />
 						</label>
 						
-						<label className="label-input" for="">
+						<label className="label-input" >
 						<FontAwesomeIcon icon={faLock} />
-							<input type="password" placeholder="Password" />
+							<input type="password" placeholder="Password"  onChange={this.onChage} name='password' value={this.state.password} />
 						</label>
 						
 						
-						<button className="btn btn-second">Cadastrar</button>        
+						<button className="btn btn-second" type='submit'>Cadastrar</button>        
 					</form>
 				</div>
 			</div>
@@ -86,17 +118,17 @@ export default class Login extends React.Component{
 					<h2 className="title title-second">Entre no PostToView</h2>
 					<div className="social-media">
 						<ul className="list-social-media">
-							<a className="link-social-media" href="#">
+							<a className="link-social-media" href="/#">
 								<li className="item-social-media">
 								<FontAwesomeIcon icon={faFacebook} />
 								</li>
 							</a>
-							<a className="link-social-media" href="#">
+							<a className="link-social-media" href="/#">
 								<li className="item-social-media">
 								<FontAwesomeIcon icon={faGooglePlusG} />
 								</li>
 							</a>
-							<a className="link-social-media" href="#">
+							<a className="link-social-media" href="/#">
 								<li className="item-social-media">
 								<FontAwesomeIcon icon={faLinkedinIn} />
 								</li>
@@ -104,19 +136,19 @@ export default class Login extends React.Component{
 						</ul>
 					</div>
 					<p className="description description-second">se prefirir usar outras contas:</p>
-					<form className="form">
+					<form className="form" onSubmit={this.onSubmitLogin}>
 					
-						<label className="label-input" for="">
+						<label className="label-input" >
 						<FontAwesomeIcon icon={faEnvelope} />
-							<input type="email" placeholder="Email" />
+							<input type="email" placeholder="Email" onChange={this.onChage} name='email' value={this.state.email} />
 						</label>
 					
-						<label className="label-input" for="">
+						<label className="label-input" >
 						<FontAwesomeIcon icon={faLock} />
-							<input type="password" placeholder="Password" />
+							<input type="password" placeholder="Password" onChange={this.onChage} name='password' value={this.state.password} />
 						</label>
 					
-						<a className="password" href="#">esqueceu a senha?</a>
+						<a className="password" href="/#">esqueceu a senha?</a>
 						<button className="btn btn-second">entrar</button>
 					</form>
 				</div>

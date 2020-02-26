@@ -1,11 +1,15 @@
 const express = require('express');
 const Users = require('../models/users');
 const router = express.Router();
+const cors = require('cors')
+router.use(cors())
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const authConfig = require('../../config/auth')
 const crypto = require('crypto')
 const mailer = require('../../modules/mailer')
+
+process.env.SECRET_KEY = 'secret'
 function generateToken(params = {}){
     return jwt.sign(params, authConfig.secret, {
         expiresIn: 86400,
@@ -13,7 +17,7 @@ function generateToken(params = {}){
 }
 
 
-router.post('/register',async(req, res) =>{
+router.post('/register',cors(), async(req, res) =>{
 const { email } = req.body;
 try {
     if(await Users.findOne({ email })){
