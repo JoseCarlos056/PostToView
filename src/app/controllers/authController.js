@@ -63,6 +63,7 @@ router.post('/forgotpassword',async(req, res) =>{
             context: { token },
 
         }).then(response =>{
+            res.send()
             console.log(response)
         }).catch((err)=>{
             console.log(err)
@@ -75,4 +76,28 @@ router.post('/forgotpassword',async(req, res) =>{
     res.status(400).send({ error : "internal Error!"})
 }
         });
+router.post('/resetpassword',async(req, res) =>{
+
+const { email, token , password } = req.body;
+try{
+    const user = await Users.findOne({ email }).select('+passwordResetToken passwordResetExpires');
+
+    if(!user)
+    res.status(400).send({erro : 'User not found'})
+    if(token !== user.passwordResetToken)
+    res.status(400).send({erro : 'Token invalid'})
+    const now = new Date();
+
+    if(now > user.passwordResetExpires)
+    res.status(400).send({erro : 'Token expried, generate a new token'})
+
+    user.password = password
+    await user.save();
+    res.send();
+
+}catch(err){
+    res.status(400).send({erro : 'Internal error from reset password'})
+}
+
+});
 module.exports = app => app.use('/auth', router)
