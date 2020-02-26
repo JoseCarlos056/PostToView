@@ -11,6 +11,14 @@ email:{
     unique: true,
     lowercase: true,
 },
+posts : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Posts'
+}],
+friends : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
+    }],
 password: {
     type: String,
     require: true,
