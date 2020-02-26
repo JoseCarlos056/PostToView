@@ -3,8 +3,9 @@ const Users = require('../models/users');
 const router = express.Router();
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const authConfig = require('../config/auth')
-
+const authConfig = require('../../config/auth')
+const crypto = require('crypto')
+const mailer = require('../../modules/mailer')
 function generateToken(params = {}){
     return jwt.sign(params, authConfig.secret, {
         expiresIn: 86400,
@@ -38,4 +39,40 @@ router.post('/authenticate',async(req, res) =>{
     user.password = undefined
     res.send({ user, token:generateToken({id: user.id}) });
     });
+
+router.post('/forgotpassword',async(req, res) =>{
+        const { email } = req.body;
+      try{
+        const user = await Users.findOne({ email }).select('+password');
+        if(!user)
+            return   res.status(400).send({ error : "User not found"});
+        const token = crypto.randomBytes(20).toString('hex');
+        const now = new Date();
+        now.setHours(now.getHours() + 1);
+
+        await Users.findByIdAndUpdate(user.id, {
+         '$set' : {
+            passwordResetToken: token,
+            passwordResetExpires: now,
+         }   
+        })
+        mailer.sendMail({
+            to: email,
+            from: 'teste@gmail.com',
+            template: 'forgotpassword',
+            context: { token },
+
+        }).then(response =>{
+            console.log(response)
+        }).catch((err)=>{
+            console.log(err)
+            if(err)
+            return res.status(400).send({error: 'Cannot send forgot password'})
+        })
+
+      }catch(err){
+    console.log(err)
+    res.status(400).send({ error : "internal Error!"})
+}
+        });
 module.exports = app => app.use('/auth', router)

@@ -5,8 +5,7 @@ app.use(bodyParser.json());
 app.use (bodyParser.urlencoded({extended: false}));
 
 
-require('./controllers/authController')(app)
-require('./controllers/projectController')(app)
+require('./app/controllers/index')(app)
 
 app.listen(5000, ()=>{
     console.log('Server rodando na porta 5000')
