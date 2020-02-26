@@ -4,20 +4,25 @@ import { faFacebook, faGooglePlusG, faLinkedinIn } from '@fortawesome/free-brand
 import { faLock,faEnvelope,faUser} from '@fortawesome/free-solid-svg-icons';
 import { Container,GlobalStyle } from './Styles/Login';
 import { register, logIn } from './functions/UserFunctions';
+import { Redirect } from 'react-router-dom';
 
 const initialState = {
     name: '',
     email:'',
-    password: '',
+	password: '',
+	redirectLogin: false,
+
 }
+
 export default class Login extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state= {
                 name: '',
                 email:'',
-                password: '',
-        }
+				password: '',
+				redirect: false,
+		}
 	}
 	showSignIn=_=>{
 		this.setState(initialState)
@@ -31,10 +36,10 @@ export default class Login extends React.Component{
     }
     onSubmitRegister=(ev)=>{
         ev.preventDefault();
-        register(this.state).then(response =>{
+        register({name:this.state.name, email: this.state.email, password: this.state.password}).then(response =>{
             if(response.error)
             return window.alert(response.error)
-            localStorage.setItem('token', response.token)
+			localStorage.setItem('token', response.token)
         })
 
     }
@@ -43,7 +48,8 @@ export default class Login extends React.Component{
         logIn({email : this.state.email ,password: this.state.password }).then(response =>{
             if(response.error)
             return window.alert(response.error)
-            localStorage.setItem('token', response.token)
+			localStorage.setItem('token', response.token)
+			this.setState({redirect : true})
         })
 
     }
@@ -52,7 +58,11 @@ export default class Login extends React.Component{
     }
 
     render(){
-        console.log(this.state)
+       if(this.state.redirect){
+		return <Redirect to={{
+			pathname: '/app/index',
+		  }} />
+	   }
         return(
             
 			<Container>
