@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs')
 const PostsSchema = new mongoose.Schema({
 content:{
     type: String,
-    
 },
 description : {
     type: String,
@@ -20,10 +19,6 @@ createdAt :{
 }
 
 });
-UserSchema.pre('save', async function(next){
-const hash = await bcrypt.hash(this.password, 10);
-this.password = hash
-next();
-})
+
 const Posts = mongoose.model('Posts', PostsSchema);
 module.exports = Posts;
