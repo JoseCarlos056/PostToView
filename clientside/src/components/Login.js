@@ -40,6 +40,7 @@ export default class Login extends React.Component{
             if(response.error)
             return window.alert(response.error)
 			localStorage.setItem('token', response.token)
+			this.setState({redirect : true})
         })
 
     }
