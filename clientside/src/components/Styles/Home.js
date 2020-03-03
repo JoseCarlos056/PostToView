@@ -133,4 +133,42 @@ background-color: #6666CC;
 }
 `;
 export const Content = styled.div`
+    margin: auto !important;
+    left: 0 !important;
+    position: fixed;
+    width: 500px;
+    height: 100%;
+    top: 70px;
+    right: 0;
+    background-color: #f2f2f2;
+    
+    .post{
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        background-color: #FFFF;
+        width: 95%;
+        .profile{
+            display: flex;
+            .profileInfo{
+                display: flex;
+                .img{
+                    height: 40px;
+                    width: 40px;
+                    background: blue;
+                    border-radius: 30px;
+                    margin-right: 15px;
+                }
+            }
+        }
+        .contentPost{
+            .imgPost{
+                border-radius: 5px;
+                background: blue;
+                height: 400px;
+            }
+
+        }
+    }
 `;

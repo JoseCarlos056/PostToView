@@ -52,7 +52,23 @@ export default class Home extends React.Component{
             </div>
          </Profile>
          <Content>
+            <div className="post">
+            <div className="profile">
+                    <div className="profileInfo">
+                         <div className="img">
+                        <img></img>
+                </div>
+                       <p>Name</p>
+                </div>
+                </div>
+                <div className="contentPost">
+                    Description
+                    <div className="imgPost">
+                        <img></img>
+                </div>
+                </div>
 
+            </div>
          </Content>
         </Page>
         
