@@ -101,6 +101,7 @@ height: 100%;
     height: 80%;
     
     .circleProfile{
+        ${props => {return console.log(props)}}
         width: 115px;
         height: 115px;
         background-color: #3E3E87;
@@ -108,6 +109,35 @@ height: 100%;
         margin-left: auto;
         margin-right: auto;
         margin-top: 15px;
+        background-image: url(${props => props.image});
+        position: relative;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        .uploadImage{
+            display: none;
+            border-radius: 80px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-color: rgba(153, 153, 153, 0.9);
+            justify-content: center;
+            align-items: center;
+            svg{
+                color: white;
+                width: 30px;
+                height: 30px;
+            }
+            input{
+                display: none;
+            }
+        }
+        &:hover{
+            .uploadImage{
+            display: flex;
+
+            }
+        }
     }
     .infoProfile{
         width: 173px;

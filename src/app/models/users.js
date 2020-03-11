@@ -35,6 +35,10 @@ passwordResetExpires:
     type: Date,
     select: false,
 },
+profileImage:
+{
+    type: String,
+},
 createdAt :{
     type: Date,
     default: Date.now,
