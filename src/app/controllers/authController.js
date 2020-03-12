@@ -41,7 +41,8 @@ router.post('/authenticate',async(req, res) =>{
     if(!await bcrypt.compare(password, user.password))
     return   res.status(400).send({ error : "Invalid passowrd"})
     user.password = undefined
-    res.send({ user, token:generateToken({id: user.id}) });
+    console.log(user)
+    res.send({ user, token:generateToken({id: user.id, image: user.profileImage}) });
     });
 
 router.post('/forgotpassword',async(req, res) =>{

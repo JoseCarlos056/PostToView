@@ -1,14 +1,15 @@
 import React from 'react';
 import logo from './Styles/img/logo.png'
+import jwtdecode from 'jwt-decode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUserAltSlash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle, Navbar, Page, Profile, Content, TodoContent, Friends } from './Styles/Home'
-import { UploadImage } from './functions/UserFunctions'
+import { UploadImage, UpdateUser } from './functions/UserFunctions'
 export default class Home extends React.Component {
     constructor() {
         super();
         this.state = {
-            imageProfile: 'https://www.ufrgs.br/naucln/wp-content/uploads/2018/07/person.png'
+            imageProfile: jwtdecode(localStorage.token).image
         }
     }
     onChange=(e)=>{
@@ -17,8 +18,14 @@ export default class Home extends React.Component {
        const formData = new FormData();
        formData.append('image',e.target.files[0]);
        UploadImage(formData).then(response=>{
-           this.setState({imageProfile : response.data.link})
-           console.log(response)
+           if(response.status === 200)
+           return  this.setState({imageProfile : response.data.link},()=>{
+            UpdateUser({newProfileImage: this.state.imageProfile}, localStorage.token).then(res =>{
+                console.log(res, true)
+            })
+           })
+           window.alert('Erro ao realizar o upload')
+           console.log(response, 'repso')
        })
     }
     render() {

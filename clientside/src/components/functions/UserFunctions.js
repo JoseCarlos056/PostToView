@@ -49,3 +49,20 @@ export const UploadImage = image =>{
         return {error : "Internal Error"}
     })
 }
+export const UpdateUser = (image, token) =>{
+    return axios(
+        {
+            method: 'put',
+            baseURL: 'http://localhost:5000',
+            url: '/users/',
+            headers:{"Authorization" : `Bearer ${token}`},
+            data: image
+        }
+    ).then(response =>{
+        if(response)
+        return response.data
+    }).catch(err => {
+        if(err)
+        return {error : "Internal Error"}
+    })
+}

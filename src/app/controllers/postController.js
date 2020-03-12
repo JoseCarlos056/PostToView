@@ -5,6 +5,8 @@ const Posts = require ('../models/posts')
 router.use(authMiddleware);
 
 router.post('/create',async(req, res) =>{
+  console.log({ ...req.body, user: req.userId })
+  console.log(req.body)
   try{
       const post = await Posts.create({ ...req.body, user: req.userId });
       return res.send({ post})
