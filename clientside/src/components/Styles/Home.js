@@ -206,6 +206,7 @@ background-color: #6666CC;
         color: white;
     }
     .svg{
+        padding: 10px;
         cursor: pointer;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;

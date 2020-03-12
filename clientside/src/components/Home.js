@@ -28,6 +28,12 @@ export default class Home extends React.Component {
            console.log(response, 'repso')
        })
     }
+    logOut=_=>{
+        const { history } = this.props;
+        localStorage.clear();
+        return history.push('/')
+
+    }
     render() {
 
         return (
@@ -49,7 +55,7 @@ export default class Home extends React.Component {
                         </form>
                     </div>
                     <div className="logout">
-                        <FontAwesomeIcon icon={faSignOutAlt} />
+                        <FontAwesomeIcon icon={faSignOutAlt} onClick={this.logOut} />
                     </div>
                 </Navbar>
                 <TodoContent>
