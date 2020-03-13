@@ -42,7 +42,7 @@ router.post('/authenticate',async(req, res) =>{
     return   res.status(400).send({ error : "Invalid passowrd"})
     user.password = undefined
     console.log(user)
-    res.send({ user, token:generateToken({id: user.id, image: user.profileImage}) });
+    res.send({ user, token:generateToken({id: user.id, image: user.profileImage, name:user.name}) });
     });
 
 router.post('/forgotpassword',async(req, res) =>{

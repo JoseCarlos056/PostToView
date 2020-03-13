@@ -4,12 +4,14 @@ import jwtdecode from 'jwt-decode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUserAltSlash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle, Navbar, Page, Profile, Content, TodoContent, Friends } from './Styles/Home'
-import { UploadImage, UpdateUser } from './functions/UserFunctions'
+import { UploadImage, UpdateUser } from './functions/UserFunctions';
+import { Posts } from './Posts'
 export default class Home extends React.Component {
     constructor() {
         super();
         this.state = {
-            imageProfile: jwtdecode(localStorage.token).image
+            imageProfile: jwtdecode(localStorage.token).image,
+            user :  jwtdecode(localStorage.token),
         }
     }
     onChange=(e)=>{
@@ -105,25 +107,7 @@ export default class Home extends React.Component {
                             </div>
                         </div>
                     </Friends>
-                    <Content>
-                        <div className="post">
-                            <div className="profile">
-                                <div className="profileInfo">
-                                    <div className="img">
-                                        <img src='https://www.ufrgs.br/naucln/wp-content/uploads/2018/07/person.png' alt=''></img>
-                                    </div>
-                                    <p>Name</p>
-                                </div>
-                            </div>
-                            <div className="contentPost">
-                                Description
-                    <div className="imgPost">
-                                    <img alt=''></img>
-                                </div>
-                            </div>
-
-                        </div>
-                    </Content>
+                  <Posts { ...this.state.user }/>
                     <Profile image={this.state.imageProfile}>
                         <div className="contentProfile">
                             <div className="circleProfile">
@@ -136,7 +120,7 @@ export default class Home extends React.Component {
 
                                 </div>
                             </div>
-                            <h3>Name of User</h3>
+                            <h3>{this.state.user.name}</h3>
                             <div className="infoProfile">
                                 <ul>
                                     <li>Amigos</li>
