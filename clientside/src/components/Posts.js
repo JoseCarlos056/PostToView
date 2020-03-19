@@ -1,11 +1,16 @@
-import React , { useEffect } from 'react';
+import React , { useEffect, useState } from 'react';
 import { Content } from './Styles/Posts'
 import { NewPost } from './NewPost';
 import { getPosts } from './functions/UserFunctions';
 export const Posts= (user) =>{
+    const [posts, setPosts] = useState([]);
+    console.log(posts)
     const getPost = async () =>{
        await getPosts(localStorage.token).then(response =>{
-           console.log(response)
+           if(response){
+            setPosts(response.post)
+           }
+       
        })
     }
     useEffect(()=>{
@@ -14,22 +19,27 @@ export const Posts= (user) =>{
     return(
         <Content>
             <NewPost { ...user} />
-        <div className="post">
-            <div className="profile">
-                <div className="profileInfo">
-                    <div className="img">
+            {posts.map((values)=>{
+                return(
+                    <div className="post">
+                    <div className="profile">
+                        <div className="profileInfo">
+                            <div className="img">
+                            </div>
+                            <p>{values.user.name}</p>
+                        </div>
                     </div>
-                    <p>Name</p>
+                    <div className="contentPost">
+                        {values.description}
+            <div className="imgPost">
+                            <img src={values.imageContent} alt=''></img>
+                        </div>
+                    </div>
+        
                 </div>
-            </div>
-            <div className="contentPost">
-                Description
-    <div className="imgPost">
-                    <img alt=''></img>
-                </div>
-            </div>
-
-        </div>
+                )
+            })}
+ 
     </Content>
     )
 }

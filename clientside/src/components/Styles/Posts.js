@@ -29,12 +29,24 @@ display: none;
             }
         }
         .contentPost{
+            
             .imgPost{
+                position: relative;
                 border-radius: 5px;
-                background: blue;
+                max-height: 400px;
+                display: flex;
+                justify-content: center;
+                align-items:center;
+                overflow: hidden;
+                position: relative;
                 height: 400px;
+}
+                img{
+                    position: relative;
+                    max-height: 100%;
+                    width: auto;
+                    height: auto;
+                }
             }
-
-        }
     }
 `;

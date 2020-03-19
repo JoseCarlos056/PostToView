@@ -40,7 +40,7 @@ router.put('/update',async(req, res) =>{
 }
 });
 
-router.delete('/delete',async(req, res) =>{
+router.delete('/',async(req, res) =>{
   try{
     console.log(req.query.postId)
    await Posts.findByIdAndDelete(req.query.postId);

@@ -3,7 +3,7 @@ import logo from './Styles/img/logo.png'
 import jwtdecode from 'jwt-decode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUserAltSlash, faUpload } from '@fortawesome/free-solid-svg-icons';
-import { GlobalStyle, Navbar, Page, Profile, Content, TodoContent, Friends } from './Styles/Home'
+import { GlobalStyle, Navbar, Page, Profile,  TodoContent, Friends } from './Styles/Home'
 import { uploadImage, updateUser } from './functions/UserFunctions';
 import { Posts } from './Posts'
 export default class Home extends React.Component {
