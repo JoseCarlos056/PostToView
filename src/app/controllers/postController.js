@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/auth')
 const Posts = require ('../models/posts')
+const PostService = require('../services/postService')
 router.use(authMiddleware);
 
-router.post('/create',async(req, res) =>{
-  console.log({ ...req.body, user: req.userId })
+router.post('/',(req, res) =>{
   console.log(req.body)
   try{
-      const post = await Posts.create({ ...req.body, user: req.userId });
-      return res.send({ post})
+      const post =  PostService.create({ ...req.body, user: req.userId });
+      console.log(post)
+      return res.send({ post })
   } catch (err){
     return res.status(400).send({error: "Internal Error"})
   }

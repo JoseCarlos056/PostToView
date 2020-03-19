@@ -66,3 +66,20 @@ export const UpdateUser = (image, token) =>{
         return {error : "Internal Error"}
     })
 }
+export const sendPost = (data, token) =>{
+    return axios(
+        {
+            method: 'post',
+            baseURL: 'http://localhost:5000',
+            url: '/posts/',
+            headers:{"Authorization" : `Bearer ${token}`},
+            data: data
+        }
+    ).then(response =>{
+        if(response)
+        return response.data
+    }).catch(err => {
+        if(err)
+        return {error : "Internal Error"}
+    })
+}

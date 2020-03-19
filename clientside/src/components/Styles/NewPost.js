@@ -5,38 +5,86 @@ export const Content = styled.div`
     width: 500px;
     background-color: #f2f2f2;
     
-    .post{
+    .postinput{
         margin-top: 10px;
         margin-left: auto;
         margin-right: auto;
         position: relative;
         background-color: #FFFF;
         width: 95%;
-        .profile{
+        .profileinput{
             display: flex;
-            .profileInfo{
+            justify-content: space-between;
+            padding: 5px;
+            .profileInfoinput{
                 display: flex;
-                .img{
+                .imginput{
                     height: 40px;
                     width: 40px;
                     background: blue;
                     border-radius: 30px;
                     margin-right: 15px;
-                    background-image: url('https://www.ufrgs.br/naucln/wp-content/uploads/2018/07/person.png');
+                    background-image: url(${props => props.image});
                     position: relative;
                     background-repeat: no-repeat;
                     background-position: center;
                     background-size: cover;
                 }
             }
-        }
-        .contentPost{
-            .imgPost{
-                border-radius: 5px;
-                background: blue;
-                height: 400px;
-            }
+            .confirm{
+                button{
+                border: none;
+                width: 70px;
+                height: 30px;
+                border-radius: 7px;
+                margin: 5px;
+                outline: none;
+                background: #3E3E87;
+                color: white;
+                font-weight: bold;
+                &:hover{
+                    background: white;
+                    color:  #3E3E87; 
+                    border: 2px solid   #3E3E87;
+                }
+                
+                }
 
+            }
+}
+    
         }
-    }
+        .contentPostinput{
+            
+            .imgPostinput{
+                position: relative;
+                border-radius: 5px;
+                max-height: 400px;
+                display: flex;
+                justify-content: center;
+                align-items:center;
+                overflow: hidden;
+                position: relative;
+                height: 400px;
+}
+                img{
+                    position: relative;
+                    max-height: 100%;
+                    width: auto;
+                    height: auto;
+                }
+            }
+            textarea{
+                width: 95%;
+                margin-left: 1px;
+                border: none;
+                resize: none;
+                padding: 10px;
+                outline: none;
+            }
+            input{
+                margin-bottom: 10px;
+            }
+        }
+    
 `;

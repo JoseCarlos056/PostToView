@@ -8,6 +8,10 @@ description : {
     type: String,
     require: true
 },
+imageContent : {
+    type: String,
+    require: true
+},
 user : {
   type: mongoose.Schema.Types.ObjectId,
   ref: 'Users',

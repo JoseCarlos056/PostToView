@@ -91,14 +91,16 @@ position: absolute;
 export const Profile = styled.div`
 position: relative;
 width: 200px;
-height: 100%;
+height: 100vh;
+    margin-top: -38px;
+    margin-right: -13px;
 .contentProfile{
     text-align: center;
     border-radius: 5px;
     position: absolute;
     width: 100%;
     background-color: #6666CC;
-    height: 80%;
+    height: 100%;
     
     .circleProfile{
         
