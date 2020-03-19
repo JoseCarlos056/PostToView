@@ -12,6 +12,10 @@ imageContent : {
     type: String,
     require: true
 },
+deletehash:
+{
+    type: String,
+},
 user : {
   type: mongoose.Schema.Types.ObjectId,
   ref: 'Users',

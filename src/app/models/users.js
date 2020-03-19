@@ -39,6 +39,10 @@ profileImage:
 {
     type: String,
 },
+deletehash:
+{
+    type: String,
+},
 createdAt :{
     type: Date,
     default: Date.now,

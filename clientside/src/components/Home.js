@@ -4,7 +4,7 @@ import jwtdecode from 'jwt-decode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUserAltSlash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle, Navbar, Page, Profile, Content, TodoContent, Friends } from './Styles/Home'
-import { UploadImage, UpdateUser } from './functions/UserFunctions';
+import { uploadImage, updateUser } from './functions/UserFunctions';
 import { Posts } from './Posts'
 export default class Home extends React.Component {
     constructor() {
@@ -19,10 +19,10 @@ export default class Home extends React.Component {
   return;
        const formData = new FormData();
        formData.append('image',e.target.files[0]);
-       UploadImage(formData).then(response=>{
+       uploadImage(formData).then(response=>{
            if(response.status === 200)
            return  this.setState({imageProfile : response.data.link},()=>{
-            UpdateUser({newProfileImage: this.state.imageProfile}, localStorage.token).then(res =>{
+            updateUser({newProfileImage: this.state.imageProfile, deletehash: response.data.deletehash }, localStorage.token).then(res =>{
                 console.log(res, true)
             })
            })

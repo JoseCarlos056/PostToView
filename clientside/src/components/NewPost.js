@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Content } from './Styles/NewPost'
-import { UploadImage, sendPost } from './functions/UserFunctions';
+import { uploadImage, sendPost } from './functions/UserFunctions';
 import JwtDecode from 'jwt-decode';
 export const NewPost= (user) =>{
     const [imageUploadedApi, setImage] = useState('');
     const [imageUploaded, setimageUploaded] = useState('');
+    const [deleteHash, setdeleteHash] = useState('');
     const [description , setDescription] = useState('');
     
     const onChange = (e)=>{
@@ -19,17 +20,34 @@ export const NewPost= (user) =>{
                  const formData = new FormData();
                  formData.append('image',e.target.files[0]);
                  setimageUploaded(URL.createObjectURL(e.target.files[0]))
-                 UploadImage(formData).then(response=>{
-                     if(response.status === 200)
-                     return  setImage(response.data.link);
+                 uploadImage(formData).then(response=>{
+                     if(response.status === 200){
+                         setdeleteHash(response.data.deletehash)
+                        return  setImage(response.data.link);
+                     }
                      window.alert('Erro ao realizar o upload')
                      console.log(response, 'repso')
                  })
     }
     const onSubmit =(e)=>{
+        e.preventDefault()
+        console.log(imageUploadedApi)
+        if(!imageUploadedApi){
+            setTimeout(() => {
+                sendPost({
+                    description: description,
+                    imageContent: imageUploadedApi,
+                    deletehash: deleteHash
+                },localStorage.token).then(response =>{
+                    if(response)
+                    return window.alert(response)
+                })
+            }, 2000);
+        }
         sendPost({
             description: description,
-            imageContent: imageUploadedApi
+            imageContent: imageUploadedApi,
+            deletehash: deleteHash
         },localStorage.token).then(response =>{
             if(response)
             return window.alert(response)

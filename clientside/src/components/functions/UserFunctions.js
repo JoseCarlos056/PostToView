@@ -32,7 +32,7 @@ export const logIn = dataUser =>{
         return {error : "Internal Error"}
     })
 }
-export const UploadImage = image =>{
+export const uploadImage = image =>{
     return axios(
         {
             method: 'post',
@@ -49,7 +49,7 @@ export const UploadImage = image =>{
         return {error : "Internal Error"}
     })
 }
-export const UpdateUser = (image, token) =>{
+export const updateUser = (image, token) =>{
     return axios(
         {
             method: 'put',
@@ -74,6 +74,22 @@ export const sendPost = (data, token) =>{
             url: '/posts/',
             headers:{"Authorization" : `Bearer ${token}`},
             data: data
+        }
+    ).then(response =>{
+        if(response)
+        return response.data
+    }).catch(err => {
+        if(err)
+        return {error : "Internal Error"}
+    })
+}
+export const getPosts = (token) =>{
+    return axios(
+        {
+            method: 'get',
+            baseURL: 'http://localhost:5000',
+            url: '/posts/list',
+            headers:{"Authorization" : `Bearer ${token}`},
         }
     ).then(response =>{
         if(response)
