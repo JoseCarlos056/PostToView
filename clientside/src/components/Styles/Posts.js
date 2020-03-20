@@ -8,7 +8,10 @@ export const Content = styled.div`
     ::-webkit-scrollbar { 
 display: none; 
 }
-    .post{
+   
+`;
+export const Post = styled.div`
+
         margin-top: 10px;
         margin-left: auto;
         margin-right: auto;
@@ -22,9 +25,13 @@ display: none;
                 .img{
                     height: 40px;
                     width: 40px;
-                    background: blue;
+                    background-image: url(${props => props.image});
                     border-radius: 30px;
                     margin-right: 15px;
+                    position: relative;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
                 }
             }
         }
@@ -48,5 +55,5 @@ display: none;
                     height: auto;
                 }
             }
-    }
+    
 `;

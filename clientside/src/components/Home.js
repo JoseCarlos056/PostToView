@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUserAltSlash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle, Navbar, Page, Profile,  TodoContent, Friends } from './Styles/Home'
 import { uploadImage, updateUser } from './functions/UserFunctions';
-import { Posts } from './Posts'
+import { Posts } from './Posts';
+
+ 
 export default class Home extends React.Component {
     constructor() {
         super();
@@ -13,6 +15,7 @@ export default class Home extends React.Component {
             imageProfile: jwtdecode(localStorage.token).image,
             user :  jwtdecode(localStorage.token),
         }
+
     }
     onChange=(e)=>{
   if(!e.target.files[0])

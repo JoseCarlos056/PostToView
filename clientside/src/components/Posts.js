@@ -1,14 +1,25 @@
 import React , { useEffect, useState } from 'react';
-import { Content } from './Styles/Posts'
+import { Content, Post } from './Styles/Posts'
 import { NewPost } from './NewPost';
 import { getPosts } from './functions/UserFunctions';
+import io from 'socket.io-client';
 export const Posts= (user) =>{
+    const socket = io('http://192.168.1.5:5000');
+socket.on('teste',(data)=>{
+    getPost();
+})
     const [posts, setPosts] = useState([]);
-    console.log(posts)
     const getPost = async () =>{
        await getPosts(localStorage.token).then(response =>{
            if(response){
-            setPosts(response.post)
+            setPosts(response.post.sort((a,b)=>{
+                const keyA = new Date(a.createdAt),
+               keyB = new Date(b.createdAt)
+            if (keyA > keyB) 
+            return -1;
+
+            return 0;
+        }))
            }
        
        })
@@ -21,7 +32,7 @@ export const Posts= (user) =>{
             <NewPost { ...user} />
             {posts.map((values)=>{
                 return(
-                    <div className="post">
+                    <Post image={values.user.profileImage}>
                     <div className="profile">
                         <div className="profileInfo">
                             <div className="img">
@@ -36,7 +47,7 @@ export const Posts= (user) =>{
                         </div>
                     </div>
         
-                </div>
+                </Post>
                 )
             })}
  

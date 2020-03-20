@@ -29,7 +29,15 @@ export const NewPost= (user) =>{
                     description: description,
                     imageContent: response.data.link,
                     deletehash: response.data.deletehash
-                },localStorage.token)
+                },localStorage.token).then(res =>{
+                    if(res){
+                        setimageUploaded('');
+                        setImage('');
+                        setDescription('');
+                        document.getElementById('inputPosts').value = '';
+                    }
+
+                })
                return  true;
             }
             window.alert('Erro ao realizar o upload')
@@ -53,7 +61,7 @@ export const NewPost= (user) =>{
             </div>
             <form className="contentPostinput" id= "form" onSubmit={onSubmit}>
                <textarea  onChange={onChange} id='inputpost' value={description} placeholder='Digite uma descrição!' />
-               <input type='file' onChange={onChangeInput} />
+               <input id='inputPosts' type='file' onChange={onChangeInput} />
     {imageUploaded ?   <div className="imgPostinput">
                     <img src={imageUploaded} alt=''></img>
                 </div> : null}
