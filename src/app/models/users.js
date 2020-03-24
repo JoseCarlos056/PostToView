@@ -17,8 +17,13 @@ posts : [{
 }],
 friends : [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
+    ref: 'Friends'
     }],
+messages : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Messages'
+}],
+
 password: {
     type: String,
     require: true,

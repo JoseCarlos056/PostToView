@@ -3,11 +3,11 @@ import logo from './Styles/img/logo.png'
 import jwtdecode from 'jwt-decode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUserAltSlash, faUpload } from '@fortawesome/free-solid-svg-icons';
-import { GlobalStyle, Navbar, Page, Profile,  TodoContent, Friends } from './Styles/Home'
+import { GlobalStyle, Navbar, Page, Profile,  TodoContent } from './Styles/Home'
 import { uploadImage, updateUser } from './functions/UserFunctions';
 import { Posts } from './Posts';
-
- 
+import { ChatFriends } from './ChatFriends';
+import { Chat } from './Chat';
 export default class Home extends React.Component {
     constructor() {
         super();
@@ -64,52 +64,8 @@ export default class Home extends React.Component {
                     </div>
                 </Navbar>
                 <TodoContent>
-                    <Friends>
-                        <div className="searchFriend">
-                            <label>
-                                <input></input>
-                                <FontAwesomeIcon icon={faSearch} />
-                            </label>
-                        </div>
-                        <div className="friends">
-                            <div className="singlefriends">
-                                <div className="img">
-                                    <img alt=''></img>
-                                </div>
-                                <div className="info">
-                                    <p>Name User</p>
-                                </div>
-                                <div className="userSlash">
-                                    <FontAwesomeIcon icon={faUserAltSlash} />
-                                </div>
-
-                            </div>
-                            <div className="singlefriends">
-                                <div className="img">
-                                    <img alt=''></img>
-                                </div>
-                                <p>Name User1</p>
-                            </div>
-                            <div className="singlefriends">
-                                <div className="img">
-                                    <img alt=''></img>
-                                </div>
-                                <p>Name User2</p>
-                            </div>
-                            <div className="singlefriends">
-                                <div className="img">
-                                    <img alt=''></img>
-                                </div>
-                                <p>Name User3</p>
-                            </div>
-                            <div className="singlefriends">
-                                <div className="img">
-                                    <img alt=''></img>
-                                </div>
-                                <p>Name User4</p>
-                            </div>
-                        </div>
-                    </Friends>
+                    <Chat />
+               {/* <ChatFriends /> */}
                   <Posts { ...this.state.user }/>
                     <Profile image={this.state.imageProfile}>
                         <div className="contentProfile">

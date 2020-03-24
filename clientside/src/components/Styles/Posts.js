@@ -11,7 +11,9 @@ display: none;
    
 `;
 export const Post = styled.div`
-
+        border: 1px solid #E1E1E1;
+        border-radius: 9px;
+        padding: 7px;
         margin-top: 10px;
         margin-left: auto;
         margin-right: auto;
