@@ -2,18 +2,20 @@ import React from 'react';
 import logo from './Styles/img/logo.png'
 import jwtdecode from 'jwt-decode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faSearch, faUserAltSlash, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSearch, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle, Navbar, Page, Profile,  TodoContent } from './Styles/Home'
 import { uploadImage, updateUser } from './functions/UserFunctions';
 import { Posts } from './Posts';
 import { ChatFriends } from './ChatFriends';
 import { Chat } from './Chat';
+import { Search } from './Search';
 export default class Home extends React.Component {
     constructor() {
         super();
         this.state = {
             imageProfile: jwtdecode(localStorage.token).image,
             user :  jwtdecode(localStorage.token),
+            search: '',
         }
 
     }
@@ -39,6 +41,9 @@ export default class Home extends React.Component {
         return history.push('/')
 
     }
+    onChange = (ev) =>{
+        this.setState({[ev.currentTarget.name] : ev.currentTarget.value})
+    }
     render() {
 
         return (
@@ -52,7 +57,7 @@ export default class Home extends React.Component {
                     <div className="search">
                         <form>
                             <label className="label-input" >
-                                <input type='text' />
+                                <input type='text' name='search' value={this.state.search} onChange={this.onChange} />
                                 <div className="svg">
                                     <FontAwesomeIcon icon={faSearch} />
                                 </div>
@@ -63,6 +68,7 @@ export default class Home extends React.Component {
                         <FontAwesomeIcon icon={faSignOutAlt} onClick={this.logOut} />
                     </div>
                 </Navbar>
+               {!!this.state.search.length &&  <Search  input={this.state.search}  />}
                 <TodoContent>
                     <Chat />
                {/* <ChatFriends /> */}

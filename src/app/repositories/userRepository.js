@@ -8,5 +8,19 @@ module.exports = {
         }).catch(err =>{
             console.log(err)
         })
-    }
+    },
+    findAll : ()=>{
+        return  UserModel.find()
+         .then(response =>{
+             
+             const newResponse = response.map((x)=>{
+                 x.messages = undefined;
+                 x.posts = undefined;
+                 x.friends = undefined;
+             })
+             return response;
+         }).catch(err =>{
+             console.log(err)
+         })
+     }
 }

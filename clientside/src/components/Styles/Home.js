@@ -14,7 +14,6 @@ export const GlobalStyle = createGlobalStyle`
 export const TodoContent = styled.div`
 position: fixed;
     top: 70px;
-    /* background: blue; */
     height: 100vh;
     left: 2px;
     right: 2px;
@@ -25,6 +24,7 @@ position: fixed;
 
 export const Page = styled.div`
 position: absolute;
+width: 100%;
 `;
 export const Profile = styled.div`
 position: relative;

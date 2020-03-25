@@ -99,3 +99,19 @@ export const getPosts = (token) =>{
         return {error : "Internal Error"}
     })
 }
+export const getAllUsers = (token) =>{
+    return axios(
+        {
+            method: 'get',
+            baseURL: 'http://localhost:5000',
+            url: '/users/list',
+            headers:{"Authorization" : `Bearer ${token}`},
+        }
+    ).then(response =>{
+        if(response)
+        return response.data
+    }).catch(err => {
+        if(err)
+        return {error : "Internal Error"}
+    })
+}
