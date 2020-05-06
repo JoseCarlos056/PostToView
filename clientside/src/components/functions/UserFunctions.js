@@ -133,3 +133,20 @@ export const addNewFriend = (data,token) =>{
         return {error : "Internal Error"}
     })
 }
+export const getFriends = (token) =>{
+    
+    return axios(
+        {
+            method: 'get',
+            baseURL: 'http://localhost:5000',
+            url: '/friends',
+            headers:{"Authorization" : `Bearer ${token}`},
+        }
+    ).then(response =>{
+        if(response)
+        return response.data
+    }).catch(err => {
+        if(err)
+        return {error : "Internal Error"}
+    })
+}

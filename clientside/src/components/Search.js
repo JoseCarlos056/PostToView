@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SearchContent, Person } from './Styles/Search'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { getAllUsers, addNewFriend } from './functions/UserFunctions';
+import { getAllUsers, addNewFriend, getFriends } from './functions/UserFunctions';
 import jwt from 'jwt-decode';
 export const Search = (input) => {
     const [users, setUsers] = useState([]);
@@ -29,24 +29,31 @@ export const Search = (input) => {
         getUsers();
     }, []);
     const getUsers = async () => {
+        const newArray = [];
         getAllUsers(localStorage.token).then(response => {
             if (response) {
-                response.splice(response.findIndex((values) => {
-                    return values._id === userId
-                }), 1)
-               
-                return setUsers(response);
+                response.map((y)=>{
+                    let index = input.friends.findIndex((x)=>{return x.friend._id === y._id})
+                    if(index === -1 && y._id !== userId){
+                        newArray.push(y) 
+                    }
+                })
+                return setUsers(newArray);
             }
         })
     }
-    const addFriend = (id)=>{
+    const addFriend = (id, index)=>{
+        input.clear();
         addNewFriend({friend: id}, localStorage.token).then(response =>{
-            console.log(response)
+            getFriends(localStorage.token).then(response =>{
+                input.setFriends(response.friendsData)
+                setUsers(users.splice(users.findIndex((x)=>{return x._id === id})))
+             })
         })
     }
     return (
         <SearchContent>
-            {usersFilters.map((values) => {
+            {usersFilters.map((values, index) => {
                 return (
                     <Person image={values.profileImage}>
                         <div className='img'>
@@ -55,7 +62,7 @@ export const Search = (input) => {
                             {values.name}
                         </div>
                         <div className='add'>
-                            <FontAwesomeIcon icon={faUserPlus} onClick={()=>{addFriend(values._id)}}/>
+                            <FontAwesomeIcon icon={faUserPlus} onClick={()=>{addFriend(values._id, index)}}/>
                         </div>
                     </Person>
                 )

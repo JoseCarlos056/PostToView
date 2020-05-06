@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle, Navbar, Page, Profile,  TodoContent } from './Styles/Home'
-import { uploadImage, updateUser } from './functions/UserFunctions';
+import { uploadImage, updateUser, getFriends } from './functions/UserFunctions';
 import { Posts } from './Posts';
 import { ChatFriends } from './ChatFriends';
 import { Chat } from './Chat';
@@ -14,12 +14,14 @@ export default function Home (props){
  const [imageProfile, setImageProfile] = useState(useSelector(state => state.UserReducer.profileImage));
  const [user, setUser] = useState(jwtdecode(localStorage.token));
  const [search, setSearch] = useState('');
- const testes = useSelector(state => state);
- const teste = useSelector(state => state.UserReducer.profileImage);
+ const [friends, setFriends]= useState([]);
  const dispatch = useDispatch();
     useEffect(()=>{
         dispatch({type: 'SET_IMAGE', image: jwtdecode(localStorage.token).image})
         setImageProfile(jwtdecode(localStorage.token).image)
+        getFriends(localStorage.token).then(response =>{
+           setFriends(response.friendsData)
+        })
     },[])
    
     const onChangeImage=(e)=>{
@@ -49,6 +51,9 @@ export default function Home (props){
     const onChange = (ev) =>{
         setSearch(ev.currentTarget.value)
     }
+    const clearInput  = () =>{
+        setSearch('')
+    }
         return (
             <Page>
                 <GlobalStyle />
@@ -71,7 +76,7 @@ export default function Home (props){
                         <FontAwesomeIcon icon={faSignOutAlt} onClick={logOut} />
                     </div>
                 </Navbar>
-               {!!search.length &&  <Search  input={search}  />}
+               {!!search.length &&  <Search  input={search} setFriends= {setFriends}  friends={friends} clear={clearInput} />}
                 <TodoContent>
                     <Chat />
                {/* <ChatFriends /> */}
@@ -91,10 +96,10 @@ export default function Home (props){
                             <h3>{user.name}</h3>
                             <div className="infoProfile">
                                 <ul>
-                                    <li>Amigos</li>
-                                    <li>Notificações</li>
-                                    <li>Convites</li>
-                                    <li>Posts</li>
+                                    <li>Amigos <div className="friendscont">{friends.length}</div></li>
+                                    <li>Notificações<div className="friendscont">{friends.length}</div></li>
+                                    <li>Convites<div className="friendscont">{friends.length}</div></li>
+                                    <li>Posts<div className="friendscont">{friends.length}</div></li>
                                 </ul>
                             </div>
                         </div>

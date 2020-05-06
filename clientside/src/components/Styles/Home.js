@@ -90,16 +90,24 @@ height: 100vh;
         justify-content: center;
         ul{
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             outline: none;
             text-decoration: none;
             list-style-type: none;
-            margin-left: auto;
-            margin-right: auto;
             color:  #ECECEF;
             li{
                 margin-bottom: 4px;
+                display: flex;
             }
             
+        }
+        .friendscont{
+            background: #6666CC;
+            min-width: 25px;
+            border-radius: 5px;
+            margin-left: 5px;
         }
     }
 }

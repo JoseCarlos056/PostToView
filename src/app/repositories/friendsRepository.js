@@ -19,8 +19,6 @@ module.exports = {
                      x.user.messages = undefined;
                     return x;
                 })
-                console.log(response)
-
                 return response;
             }).catch(err => {
                 console.log(err)
