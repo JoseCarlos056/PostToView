@@ -1,6 +1,7 @@
-import React from 'react';
-import logo from './Styles/img/logo.png'
+import React, { useEffect, useState} from 'react';
 import jwtdecode from 'jwt-decode';
+import logo from './Styles/img/logo.png'
+import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faSearch, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle, Navbar, Page, Profile,  TodoContent } from './Styles/Home'
@@ -9,43 +10,45 @@ import { Posts } from './Posts';
 import { ChatFriends } from './ChatFriends';
 import { Chat } from './Chat';
 import { Search } from './Search';
-export default class Home extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            imageProfile: jwtdecode(localStorage.token).image,
-            user :  jwtdecode(localStorage.token),
-            search: '',
-        }
-
-    }
-    onChange=(e)=>{
+export default function Home (props){
+ const [imageProfile, setImageProfile] = useState(useSelector(state => state.UserReducer.profileImage));
+ const [user, setUser] = useState(jwtdecode(localStorage.token));
+ const [search, setSearch] = useState('');
+ const testes = useSelector(state => state);
+ const teste = useSelector(state => state.UserReducer.profileImage);
+ const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch({type: 'SET_IMAGE', image: jwtdecode(localStorage.token).image})
+        setImageProfile(jwtdecode(localStorage.token).image)
+    },[])
+   
+    const onChangeImage=(e)=>{
   if(!e.target.files[0])
   return;
        const formData = new FormData();
        formData.append('image',e.target.files[0]);
        uploadImage(formData).then(response=>{
-           if(response.status === 200)
-           return  this.setState({imageProfile : response.data.link},()=>{
-            updateUser({newProfileImage: this.state.imageProfile, deletehash: response.data.deletehash }, localStorage.token).then(res =>{
-                console.log(res, true)
-            })
-           })
+           if(response.status === 200){
+            setImageProfile(response.data.link)
+            return updateUser({newProfileImage: response.data.link, deletehash: response.data.deletehash }, localStorage.token).then(res =>{
+                localStorage.token = res;
+                dispatch({type: 'SET_IMAGE', image: response.data.link})
+              })
+           }
+           
            window.alert('Erro ao realizar o upload')
            console.log(response, 'repso')
        })
     }
-    logOut=_=>{
-        const { history } = this.props;
+    const logOut=_=>{
+        const { history } = props;
         localStorage.clear();
         return history.push('/')
 
     }
-    onChange = (ev) =>{
-        this.setState({[ev.currentTarget.name] : ev.currentTarget.value})
+    const onChange = (ev) =>{
+        setSearch(ev.currentTarget.value)
     }
-    render() {
-
         return (
             <Page>
                 <GlobalStyle />
@@ -57,7 +60,7 @@ export default class Home extends React.Component {
                     <div className="search">
                         <form>
                             <label className="label-input" >
-                                <input type='text' name='search' value={this.state.search} onChange={this.onChange} />
+                                <input type='text' name='search' value={search} onChange={onChange} />
                                 <div className="svg">
                                     <FontAwesomeIcon icon={faSearch} />
                                 </div>
@@ -65,15 +68,15 @@ export default class Home extends React.Component {
                         </form>
                     </div>
                     <div className="logout">
-                        <FontAwesomeIcon icon={faSignOutAlt} onClick={this.logOut} />
+                        <FontAwesomeIcon icon={faSignOutAlt} onClick={logOut} />
                     </div>
                 </Navbar>
-               {!!this.state.search.length &&  <Search  input={this.state.search}  />}
+               {!!search.length &&  <Search  input={search}  />}
                 <TodoContent>
                     <Chat />
                {/* <ChatFriends /> */}
-                  <Posts { ...this.state.user }/>
-                    <Profile image={this.state.imageProfile}>
+                  <Posts { ...user }/>
+                    <Profile image={imageProfile}>
                         <div className="contentProfile">
                             <div className="circleProfile">
                                 <div className="uploadImage">
@@ -81,11 +84,11 @@ export default class Home extends React.Component {
                                         <FontAwesomeIcon icon={faUpload} />
                                     </label>
 
-                                    <input id="file-input" type="file" onChange= {this.onChange} />
+                                    <input id="file-input" type="file" onChange= {onChangeImage} />
 
                                 </div>
                             </div>
-                            <h3>{this.state.user.name}</h3>
+                            <h3>{user.name}</h3>
                             <div className="infoProfile">
                                 <ul>
                                     <li>Amigos</li>
@@ -101,5 +104,4 @@ export default class Home extends React.Component {
             </Page>
 
         )
-    }
 }

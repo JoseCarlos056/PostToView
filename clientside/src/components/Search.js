@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SearchContent, Person } from './Styles/Search'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { getAllUsers } from './functions/UserFunctions';
+import { getAllUsers, addNewFriend } from './functions/UserFunctions';
 import jwt from 'jwt-decode';
 export const Search = (input) => {
     const [users, setUsers] = useState([]);
@@ -25,6 +25,9 @@ export const Search = (input) => {
     useEffect(() => {
         filterData(input.input);
     }, [users]);
+    useEffect(() => {
+        getUsers();
+    }, []);
     const getUsers = async () => {
         getAllUsers(localStorage.token).then(response => {
             if (response) {
@@ -36,9 +39,11 @@ export const Search = (input) => {
             }
         })
     }
-    useEffect(() => {
-        getUsers();
-    }, []);
+    const addFriend = (id)=>{
+        addNewFriend({friend: id}, localStorage.token).then(response =>{
+            console.log(response)
+        })
+    }
     return (
         <SearchContent>
             {usersFilters.map((values) => {
@@ -50,7 +55,7 @@ export const Search = (input) => {
                             {values.name}
                         </div>
                         <div className='add'>
-                            <FontAwesomeIcon icon={faUserPlus} />
+                            <FontAwesomeIcon icon={faUserPlus} onClick={()=>{addFriend(values._id)}}/>
                         </div>
                     </Person>
                 )

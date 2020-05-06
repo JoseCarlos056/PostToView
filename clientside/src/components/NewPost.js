@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Content } from './Styles/NewPost'
+import { Content } from './Styles/NewPost';
 import { uploadImage, sendPost } from './functions/UserFunctions';
 export const NewPost= (user) =>{
     const [imageUploadedApi, setImage] = useState('');

@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from '../components/Home';
+import { Provider } from 'react-redux';
 import Login from '../components/Login';
-import Home from '../components/Home'
-import ProtectedRoute from './ProtectedRoute'
+import store from '../components/store/index';
+import ProtectedRoute from './ProtectedRoute';
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 class Routes extends Component {
     constructor(props) {
       super(props);
@@ -13,6 +17,7 @@ class Routes extends Component {
     render() {
       return (
         <Router>
+          <Provider store={store}>
           <div className="App">
             <Switch>
             <Route exact path="/" component={Login} />
@@ -22,6 +27,7 @@ class Routes extends Component {
             <Route  path="*" component={()=>{return(<h1>404</h1>)}} />
             </Switch>
           </div>
+          </Provider>
         </Router>
       )
     }

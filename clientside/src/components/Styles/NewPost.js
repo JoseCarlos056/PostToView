@@ -24,7 +24,6 @@ export const Content = styled.div`
                 .imginput{
                     height: 40px;
                     width: 40px;
-                    background: blue;
                     border-radius: 30px;
                     margin-right: 15px;
                     background-image: url(${props => props.image});

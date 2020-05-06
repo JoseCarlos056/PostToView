@@ -37,7 +37,6 @@ module.exports = (paramters) =>{
         
         router.post('/authenticate',async(req, res) =>{
           setTimeout(() => {
-              console.log('emitiu')
             paramters.io.emit('teste',{obj: 'teste'})
           }, 5000);
             const { email, password } = req.body;
@@ -48,7 +47,6 @@ module.exports = (paramters) =>{
             if(!await bcrypt.compare(password, user.password))
             return   res.status(400).send({ error : "Invalid passowrd"})
             user.password = undefined
-            console.log(user)
             res.send({ user, token:generateToken({id: user.id, image: user.profileImage, name:user.name}) });
             });
         

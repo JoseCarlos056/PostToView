@@ -17,9 +17,6 @@ module.exports = {
                      x.user.posts = undefined;
                      x.user.friends = undefined;
                      x.user.messages = undefined;
-                     x.friend.posts = undefined;
-                     x.friend.friends = undefined;
-                     x.friend.messages = undefined;
                     return x;
                 })
                 console.log(response)

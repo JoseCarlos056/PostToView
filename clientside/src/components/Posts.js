@@ -1,6 +1,7 @@
 import React , { useEffect, useState } from 'react';
 import { Content, Post } from './Styles/Posts'
 import { NewPost } from './NewPost';
+import { useSelector } from 'react-redux';
 import { getPosts } from './functions/UserFunctions';
 import io from 'socket.io-client';
 export const Posts= (user) =>{
@@ -9,6 +10,8 @@ socket.on('teste',(data)=>{
     getPost();
 })
     const [posts, setPosts] = useState([]);
+    const [users,setUsers] =useState(user);
+    const profileImage = useSelector(state => state.UserReducer.profileImage)
     const getPost = async () =>{
        await getPosts(localStorage.token).then(response =>{
            if(response){
@@ -25,14 +28,18 @@ socket.on('teste',(data)=>{
        })
     }
     useEffect(()=>{
+        setUsers({ ...users, image: profileImage})
+    },[profileImage]);
+    useEffect(()=>{
         getPost();
+        
     },[]);
     return(
         <Content>
-            <NewPost { ...user} />
+            <NewPost { ...users} />
             {posts.map((values)=>{
                 return(
-                    <Post image={values.user.profileImage}>
+                    <Post image={profileImage}>
                     <div className="profile">
                         <div className="profileInfo">
                             <div className="img">
