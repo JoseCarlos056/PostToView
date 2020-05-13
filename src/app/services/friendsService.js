@@ -7,28 +7,23 @@ module.exports = {
   },
   findAll: async (data) => {
     let friendsdata = await FriendsRepository.findAll(data);
-    let newData = [];
+    let posts = [];
     if (friendsdata) {
+      posts.push(
+        ...(await PostsRepository.getPostsFromUser({
+          user: friendsdata[0].user._id,
+        }))
+      );
       await Promise.all(
         friendsdata.map(async (friends) => {
-          const { user, friend } = friends;
-          let posts = await PostsRepository.getPostsFromUser({
-            user: friends.friend._id,
-          });
-          let newFriend = {
-            user: user,
-            friend: friend,
-            post: [],
-          };
-          if (!!posts.length) {
-            console.log("tem");
-            newFriend.post = posts;
-          }
-
-          newData.push(newFriend);
+          posts.push(
+            ...(await PostsRepository.getPostsFromUser({
+              user: friends.friend._id,
+            }))
+          );
         })
       );
-      return newData;
+      return { friendsdata, posts };
     }
   },
 };

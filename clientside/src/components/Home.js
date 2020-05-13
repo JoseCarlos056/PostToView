@@ -19,6 +19,7 @@ export default function Home(props) {
     useSelector((state) => state.UserReducer.profileImage)
   );
   const [user, setUser] = useState(jwtdecode(localStorage.token));
+  const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function Home(props) {
     }
     getFriends(localStorage.token).then((response) => {
       setFriends(response.friendsData);
+      setPosts(response.posts);
     });
   }, []);
 
@@ -107,7 +109,7 @@ export default function Home(props) {
       <TodoContent>
         <Chat />
         {/* <ChatFriends /> */}
-        <Posts {...user} />
+        <Posts {...user} posts={posts} />
         <Profile image={imageProfile}>
           <div className="contentProfile">
             <div className="circleProfile">

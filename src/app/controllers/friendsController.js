@@ -21,7 +21,10 @@ module.exports = (paramters) => {
   router.get("/", async (req, res) => {
     try {
       const friendsData = await FriendsService.findAll({ user: req.userId });
-      return res.send({ friendsData });
+      return res.send({
+        friendsData: friendsData.friendsdata,
+        posts: friendsData.posts,
+      });
     } catch (err) {
       console.log("ocorreu um erro \n e foi esse: \n", err);
       return res.status(400).send({ error: "Internal Error" });

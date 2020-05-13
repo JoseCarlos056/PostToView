@@ -13,6 +13,7 @@ module.exports = {
   },
   getPostsFromUser: (data) => {
     return PostModel.find(data)
+      .populate("user")
       .then((response) => {
         return response;
       })
