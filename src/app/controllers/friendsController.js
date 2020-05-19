@@ -21,6 +21,7 @@ module.exports = (paramters) => {
   router.get("/", async (req, res) => {
     try {
       const friendsData = await FriendsService.findAll({ user: req.userId });
+      console.log(friendsData);
       return res.send({
         friendsData: friendsData.friendsdata,
         posts: friendsData.posts,
