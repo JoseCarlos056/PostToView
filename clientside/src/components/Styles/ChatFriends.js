@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FriendsChat = styled.div`
 
@@ -65,4 +65,3 @@ background-color: #3E3E87;
     }
 }
 `;
-   

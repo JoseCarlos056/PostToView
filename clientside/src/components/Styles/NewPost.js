@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Content = styled.div`
     position: relative;
@@ -26,7 +26,7 @@ export const Content = styled.div`
                     width: 40px;
                     border-radius: 30px;
                     margin-right: 15px;
-                    background-image: url(${props => props.image});
+                    background-image: url(${(props) => props.image});
                     position: relative;
                     background-repeat: no-repeat;
                     background-position: center;
